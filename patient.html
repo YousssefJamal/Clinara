@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ملف المواطن | Clinara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .bg-card { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen pb-12">
+
+    <nav class="bg-white border-b px-6 py-4 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center gap-2">
+            <a href="roles.html" class="text-gray-400 hover:text-blue-900 transition">
+                <i data-lucide="chevron-right" class="w-8 h-8"></i>
+            </a>
+            <h1 class="text-xl font-bold text-gray-800">بوابة المواطن الرقمية</h1>
+        </div>
+        <div class="flex items-center gap-3">
+             <div class="text-left hidden sm:block">
+                <div class="text-sm font-bold text-gray-800">أحمد محمد علي</div>
+                <div class="text-xs text-green-600 font-bold">تأمين صحي نشط</div>
+            </div>
+            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-700 font-bold">أ</div>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-6">
+        
+        <section class="mb-8">
+            <div class="bg-card rounded-3xl p-6 text-white shadow-xl relative overflow-hidden">
+                <div class="absolute top-0 left-0 p-8 opacity-10"><i data-lucide="activity" size="120"></i></div>
+                
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-8">
+                        <div>
+                            <p class="text-blue-100 text-sm font-bold mb-1">الجمهورية العربية المصرية</p>
+                            <h2 class="text-xl font-black">منظومة التأمين الصحي الشامل</h2>
+                        </div>
+                        <i data-lucide="contact-2" class="w-10 h-10 text-blue-200"></i>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-y-6">
+                        <div>
+                            <p class="text-blue-100 text-xs mb-1 uppercase tracking-widest">اسم المواطن</p>
+                            <p class="text-lg font-bold">أحمد محمد علي إبراهيم</p>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-blue-100 text-xs mb-1 uppercase tracking-widest">الرقم القومي</p>
+                            <p class="text-lg font-mono font-bold">2850514XXXXXXX</p>
+                        </div>
+                        <div>
+                            <p class="text-blue-100 text-xs mb-1 uppercase tracking-widest">فصيلة الدم</p>
+                            <p class="text-lg font-bold">O+ (موجب)</p>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-blue-100 text-xs mb-1 uppercase tracking-widest">كود التأمين</p>
+                            <p class="text-lg font-bold">HI-998234</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-10">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i data-lucide="file-text" class="text-blue-600"></i>
+                الملف الطبي المختصر
+            </h3>
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="flex items-center gap-3 p-3 bg-red-50 rounded-xl border border-red-100">
+                    <div class="text-red-600"><i data-lucide="alert-circle"></i></div>
+                    <div>
+                        <p class="text-xs text-red-400 font-bold uppercase">حالات مزمنة</p>
+                        <p class="text-sm font-bold text-red-700">ضغط دم مرتفع - حساسية بنسلين</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 p-3 bg-green-50 rounded-xl border border-green-100">
+                    <div class="text-green-600"><i data-lucide="check-circle-2"></i></div>
+                    <div>
+                        <p class="text-xs text-green-400 font-bold uppercase">آخر تطعيم</p>
+                        <p class="text-sm font-bold text-green-700">لقاح الإنفلونزا الموسمية (2025)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i data-lucide="layout-grid" class="text-blue-600"></i>
+                خدمات سريعة
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <button class="flex items-center p-6 bg-white border-2 border-transparent hover:border-blue-600 rounded-2xl shadow-sm transition-all group">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center ml-4 group-hover:scale-110 transition">
+                        <i data-lucide="calendar-days" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-right">
+                        <h4 class="text-xl font-bold">حجز كشف</h4>
+                        <p class="text-sm text-gray-400 italic">اضغط هنا للذهاب للطبيب</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center p-6 bg-white border-2 border-transparent hover:border-green-600 rounded-2xl shadow-sm transition-all group">
+                    <div class="w-16 h-16 bg-green-100 text-green-700 rounded-full flex items-center justify-center ml-4 group-hover:scale-110 transition">
+                        <i data-lucide="microscope" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-right">
+                        <h4 class="text-xl font-bold">نتائج التحاليل</h4>
+                        <p class="text-sm text-gray-400 italic">عرض الأشعة والنتائج</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center p-6 bg-white border-2 border-transparent hover:border-orange-500 rounded-2xl shadow-sm transition-all group">
+                    <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center ml-4 group-hover:scale-110 transition">
+                        <i data-lucide="pill" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-right">
+                        <h4 class="text-xl font-bold">أدويتي</h4>
+                        <p class="text-sm text-gray-400 italic">متابعة صرف العلاج الشهري</p>
+                    </div>
+                </button>
+
+                <button class="flex items-center p-6 bg-red-600 text-white rounded-2xl shadow-lg hover:bg-red-700 transition-all group">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center ml-4 group-hover:animate-pulse">
+                        <i data-lucide="ambulance" class="w-8 h-8"></i>
+                    </div>
+                    <div class="text-right">
+                        <h4 class="text-xl font-bold">طلب طوارئ</h4>
+                        <p class="text-blue-100 text-sm">استدعاء فوري للإسعاف</p>
+                    </div>
+                </button>
+            </div>
+        </section>
+
+        <div class="mt-12 p-6 bg-blue-900 rounded-2xl text-white flex items-center justify-between shadow-2xl">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center animate-bounce">
+                    <i data-lucide="mic" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h4 class="font-bold">هل تحتاج للمساعدة؟</h4>
+                    <p class="text-xs text-blue-200">تحدث معي، أنا أسمعك الآن</p>
+                </div>
+            </div>
+            <button class="bg-white text-blue-900 px-4 py-2 rounded-lg font-bold text-sm">ابدأ التحدث</button>
+        </div>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

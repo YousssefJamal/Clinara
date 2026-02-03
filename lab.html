@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المعمل المركزي | Clinara Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>body { font-family: 'Cairo', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 h-screen flex overflow-hidden text-slate-800">
+
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-xl z-10">
+        <div class="h-16 flex items-center justify-center border-b border-slate-800 bg-emerald-950">
+            <span class="font-black text-xl">Clinara <span class="text-emerald-400">Lab</span></span>
+        </div>
+        <nav class="flex-1 py-6 px-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-emerald-600 text-white rounded-xl font-bold">
+                <i data-lucide="test-tube-2"></i>
+                <span>طلبات الفحص</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <a href="roles.html" class="flex items-center text-slate-500 font-bold gap-2 p-2 hover:text-white transition text-sm">
+                <i data-lucide="log-out"></i> <span>خروج</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <header class="h-16 bg-white border-b flex justify-between items-center px-8 shadow-sm">
+            <h2 class="font-bold text-slate-800 italic uppercase">وحدة التحاليل والأشعة المركزية</h2>
+            <div class="flex items-center gap-2">
+                <span class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-tighter">متصل بالعيادات</span>
+            </div>
+        </header>
+
+        <div class="p-8 overflow-y-auto flex-1">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full">
+                
+                <div class="lg:col-span-1 bg-white rounded-2xl border shadow-sm flex flex-col">
+                    <div class="p-4 border-b bg-slate-50 font-black text-xs text-slate-500 uppercase">طلبات العيادات اللحظية</div>
+                    <div class="flex-1 overflow-y-auto divide-y">
+                        <div onclick="showRequest()" class="p-4 hover:bg-emerald-50 cursor-pointer transition border-r-4 border-emerald-500 bg-emerald-50/30">
+                            <div class="flex justify-between items-start mb-1">
+                                <h4 class="font-bold text-slate-900">أحمد محمد علي</h4>
+                                <span class="text-[10px] text-emerald-600 font-bold">عاجل</span>
+                            </div>
+                            <p class="text-xs text-slate-500 italic mb-2">طلب من: عيادة الباطنة (د. محمد)</p>
+                            <div class="flex gap-1 flex-wrap">
+                                <span class="bg-slate-100 text-slate-600 text-[9px] px-2 py-0.5 rounded-full font-bold">CBC</span>
+                                <span class="bg-slate-100 text-slate-600 text-[9px] px-2 py-0.5 rounded-full font-bold">Glucose</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white rounded-2xl border shadow-sm p-8 flex flex-col">
+                    <div id="empty-lab" class="flex-1 flex flex-col items-center justify-center opacity-30">
+                        <i data-lucide="microscope" size="80" class="mb-4"></i>
+                        <p class="font-bold">اختر طلباً لبدء تسجيل النتائج</p>
+                    </div>
+
+                    <div id="lab-form" class="hidden space-y-6">
+                        <div class="flex justify-between items-center border-b pb-4">
+                            <h3 class="text-xl font-black">تسجيل نتائج التحليل</h3>
+                            <span class="text-sm text-slate-400">مريض: أحمد محمد علي (#28501)</span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-slate-50 rounded-xl border">
+                                    <label class="block text-xs font-bold text-slate-500 mb-2">صورة دم كاملة (CBC)</label>
+                                    <input type="text" placeholder="أدخل النتيجة..." class="w-full bg-white border p-3 rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-xl border">
+                                    <label class="block text-xs font-bold text-slate-500 mb-2">نسبة السكر (Glucose)</label>
+                                    <input type="text" placeholder="أدخل النتيجة..." class="w-full bg-white border p-3 rounded-lg outline-none focus:ring-2 focus:ring-emerald-500">
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border">
+                                <label class="block text-xs font-bold text-slate-500 mb-2">تقرير الأشعة (في حال طلبها)</label>
+                                <div class="border-2 border-dashed border-slate-300 rounded-lg p-6 text-center cursor-pointer hover:bg-slate-100 transition">
+                                    <i data-lucide="upload-cloud" class="mx-auto text-slate-400 mb-2"></i>
+                                    <p class="text-xs text-slate-500">اسحب وارفع صورة الأشعة هنا</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="sendResults()" class="w-full bg-emerald-700 text-white py-4 rounded-xl font-black text-lg hover:bg-emerald-800 shadow-xl transition-all flex items-center justify-center gap-3">
+                            <i data-lucide="send"></i>
+                            اعتماد النتائج وإرسال الإشعارات
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        function showRequest() {
+            document.getElementById('empty-lab').classList.add('hidden');
+            document.getElementById('lab-form').classList.remove('hidden');
+            lucide.createIcons();
+        }
+        function sendResults() {
+            alert("تم رفع النتائج على ملف المريض المركزي. تم إشعار الطبيب والمريض آلياً.");
+            location.reload();
+        }
+    </script>
+</body>
+</html>

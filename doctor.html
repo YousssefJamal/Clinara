@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عيادة الطبيب المتكاملة | Clinara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .active-tab { border-bottom: 4px solid #1e40af; color: #1e40af; background: #eff6ff; }
+        .hidden-panel { display: none; }
+        .patient-item:hover { background-color: #f1f5f9; }
+        .selected-patient { border-right: 4px solid #1e40af; background-color: #eff6ff !important; }
+    </style>
+</head>
+<body class="bg-slate-50 h-screen flex overflow-hidden text-slate-800">
+
+    <aside class="w-64 bg-slate-900 text-white flex flex-col shadow-2xl z-20">
+        <div class="h-16 flex items-center justify-center border-b border-slate-800 bg-blue-950">
+            <span class="font-black text-xl">Clinara <span class="text-blue-400">Med</span></span>
+        </div>
+        <nav class="flex-1 py-6 px-4 space-y-2">
+            <div class="text-[10px] text-slate-500 font-bold uppercase mb-4 mr-2 tracking-widest">المهام الرئيسية</div>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-900/50">
+                <i data-lucide="users" class="w-5 h-5"></i>
+                <span>قائمة العيادة</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:bg-slate-800 rounded-xl transition">
+                <i data-lucide="file-clock" class="w-5 h-5"></i>
+                <span>السجلات السابقة</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <a href="roles.html" class="flex items-center text-slate-500 font-bold gap-2 p-2 hover:text-white transition text-sm">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <span>إنهاء الوردية</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex overflow-hidden">
+        
+        <div class="w-80 bg-white border-l border-slate-200 flex flex-col shadow-sm">
+            <div class="p-4 border-b border-slate-100 bg-slate-50 flex justify-between items-center">
+                <h3 class="font-black text-sm text-slate-700 uppercase">الانتظار بالخارج (12)</h3>
+                <i data-lucide="refresh-cw" class="w-4 h-4 text-slate-400 cursor-pointer"></i>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto divide-y divide-slate-50" id="patient-list">
+                </div>
+        </div>
+
+        <div class="flex-1 flex flex-col overflow-hidden bg-slate-50">
+            
+            <header class="h-16 bg-white border-b flex justify-between items-center px-8 shadow-sm z-10">
+                <div class="flex items-center gap-3">
+                    <h2 class="font-bold text-slate-800" id="current-patient-header">يرجى اختيار مريض</h2>
+                    <span id="patient-id-tag" class="text-xs text-slate-400 hidden"></span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-bold">العيادة متصلة بالمركز</span>
+                    <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-600 border">د</div>
+                </div>
+            </header>
+
+            <div class="flex-1 p-6 overflow-y-auto" id="work-area">
+                
+                <div id="empty-state" class="h-full flex flex-col items-center justify-center text-slate-400 opacity-40">
+                    <i data-lucide="user-search" size="80" class="mb-4"></i>
+                    <p class="text-xl font-bold">اضغط على اسم المريض لبدء الكشف</p>
+                </div>
+
+                <div id="doctor-panel" class="hidden-panel space-y-6">
+                    
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-blue-100 shadow-sm">
+                            <p class="text-[10px] font-bold text-blue-500 mb-1">التاريخ الطبي المركزي</p>
+                            <div id="patient-history" class="text-xs text-slate-600 leading-relaxed italic">
+                                </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-red-100 shadow-sm">
+                            <p class="text-[10px] font-bold text-red-500 mb-1">تنبيهات الحساسية</p>
+                            <p id="patient-alerts" class="text-xs font-bold text-red-700">لا يوجد</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                            <p class="text-[10px] font-bold text-slate-400 mb-1">آخر فحص حيوي</p>
+                            <p class="text-xs font-bold text-slate-700">الضغط: <span id="p-bp">120/80</span> | الحرارة: <span id="p-temp">37</span></p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="flex border-b bg-slate-50/50">
+                            <button onclick="switchTab('diagnosis-tab')" id="btn-diagnosis-tab" class="flex-1 py-4 font-bold active-tab flex items-center justify-center gap-2 border-l">
+                                <i data-lucide="edit-3" class="w-4 h-4"></i> التشخيص الحالي
+                            </button>
+                            <button onclick="switchTab('prescription-tab')" id="btn-prescription-tab" class="flex-1 py-4 font-bold text-slate-400 flex items-center justify-center gap-2 border-l">
+                                <i data-lucide="pill" class="w-4 h-4"></i> الروشتة الإلكترونية
+                            </button>
+                            <button onclick="switchTab('lab-tab')" id="btn-lab-tab" class="flex-1 py-4 font-bold text-slate-400 flex items-center justify-center gap-2">
+                                <i data-lucide="test-tube-2" class="w-4 h-4"></i> الفحوصات والأشعة
+                            </button>
+                        </div>
+
+                        <div class="p-6">
+                            <div id="diagnosis-tab" class="tab-panel">
+                                <textarea placeholder="اكتب ملاحظاتك الطبية هنا..." class="w-full h-40 bg-slate-50 border border-slate-200 rounded-xl p-4 outline-none focus:ring-2 focus:ring-blue-500 transition mb-4"></textarea>
+                                <div class="flex justify-end gap-2">
+                                    <button onclick="finalizeSession()" class="bg-blue-700 text-white px-8 py-3 rounded-xl font-bold hover:bg-blue-800 shadow-lg flex items-center gap-2">
+                                        <i data-lucide="check-circle"></i> إنهاء الكشف وحفظ البيانات
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="prescription-tab" class="tab-panel hidden-panel">
+                                <div class="space-y-4">
+                                    <div class="flex gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                                        <input type="text" placeholder="اسم الدواء..." class="flex-1 p-2 rounded-lg border focus:ring-2 outline-none">
+                                        <input type="text" placeholder="الجرعة (مثلاً 3 مرات)" class="w-1/3 p-2 rounded-lg border focus:ring-2 outline-none">
+                                        <button class="bg-blue-600 text-white px-4 rounded-lg font-bold">+</button>
+                                    </div>
+                                    <p class="text-xs text-slate-400 italic">ملاحظة: النظام سيتحقق آلياً من تداخلات الأدوية مع التاريخ المرضي.</p>
+                                </div>
+                            </div>
+
+                            <div id="lab-tab" class="tab-panel hidden-panel">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-4 border rounded-xl hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+                                        <input type="checkbox" class="w-5 h-5">
+                                        <span class="font-bold">صورة دم كاملة (CBC)</span>
+                                    </div>
+                                    <div class="p-4 border rounded-xl hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+                                        <input type="checkbox" class="w-5 h-5">
+                                        <span class="font-bold">أشعة سينية على الصدر</span>
+                                    </div>
+                                    <div class="p-4 border rounded-xl hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+                                        <input type="checkbox" class="w-5 h-5">
+                                        <span class="font-bold">تحليل سكر تراكمي</span>
+                                    </div>
+                                    <div class="p-4 border rounded-xl hover:bg-slate-50 cursor-pointer flex items-center gap-3">
+                                        <input type="checkbox" class="w-5 h-5">
+                                        <span class="font-bold">رنين مغناطيسي (MRI)</span>
+                                    </div>
+                                </div>
+                                <button onclick="sendToLab()" class="mt-6 w-full bg-slate-900 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2">
+                                    <i data-lucide="send"></i> إرسال الطلبات للمعمل والأشعة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // داتا الـ 12 مريض
+        const patients = [
+            { id: "28501", name: "أحمد محمد علي", history: "يعاني من ضغط مزمن منذ 3 سنوات، آخر زيارة لوحدة ميت غمر كانت بسبب نزلات برد.", alert: "حساسية بنسلين", bp: "145/95", temp: "37.2" },
+            { id: "29012", name: "سناء محمود حسن", history: "عملية جراحية في الركبة (2022)، تتابع عيادة العظام بانتظام.", alert: "لا يوجد", bp: "120/80", temp: "36.8" },
+            { id: "27844", name: "إبراهيم السيد علي", history: "مريض سكر نوع ثاني، يتابع في وحدة الرعاية الأولية.", alert: "حساسية أسبرين", bp: "130/85", temp: "37.0" },
+            { id: "29533", name: "زينب مصطفى", history: "حمل في الشهر السادس، متابعة دورية.", alert: "لا يوجد", bp: "110/70", temp: "37.1" },
+            { id: "26011", name: "محمود عبد الرحمن", history: "ربو شعبي مزمن، يستخدم بخاخة بانتظام.", alert: "حساسية أتربة", bp: "125/80", temp: "36.5" },
+            { id: "28199", name: "فاطمة إبراهيم", history: "كشف دوري شامل.", alert: "لا يوجد", bp: "115/75", temp: "37.2" },
+            { id: "27755", name: "سيد خالد", history: "إصابة عمل قديمة في الظهر.", alert: "لا يوجد", bp: "140/90", temp: "36.9" },
+            { id: "28900", name: "منى زكي", history: "التهاب حاد في اللوزتين.", alert: "حساسية سلفا", bp: "120/80", temp: "38.5" },
+            { id: "28211", name: "ياسر جلال", history: "اضطرابات في الجهاز الهضمي.", alert: "لا يوجد", bp: "122/82", temp: "37.0" },
+            { id: "29433", name: "هدى حسين", history: "فحص ما قبل الزواج.", alert: "لا يوجد", bp: "118/78", temp: "36.7" },
+            { id: "26544", name: "كمال الشناوي", history: "ضعف عام وأنيميا.", alert: "لا يوجد", bp: "100/60", temp: "37.0" },
+            { id: "28877", name: "ليلى طاهر", history: "صداع نصفي متكرر.", alert: "لا يوجد", bp: "120/80", temp: "37.2" }
+        ];
+
+        const patientList = document.getElementById('patient-list');
+        
+        // توليد قائمة المرضى
+        patients.forEach(p => {
+            const div = document.createElement('div');
+            div.className = "p-4 patient-item cursor-pointer border-r-4 border-transparent transition-all";
+            div.innerHTML = `
+                <div class="flex justify-between items-start mb-1">
+                    <h4 class="font-bold text-slate-900">${p.name}</h4>
+                    <span class="text-[10px] text-slate-400 font-bold">#${p.id}</span>
+                </div>
+                <p class="text-[10px] text-slate-400 truncate">${p.history.substring(0, 40)}...</p>
+            `;
+            div.onclick = () => selectPatient(p, div);
+            patientList.appendChild(div);
+        });
+
+        function selectPatient(p, element) {
+            // إزالة التحديد من الجميع
+            document.querySelectorAll('.patient-item').forEach(el => el.classList.remove('selected-patient'));
+            element.classList.add('selected-patient');
+
+            // إظهار اللوحة
+            document.getElementById('empty-state').classList.add('hidden-panel');
+            document.getElementById('doctor-panel').classList.remove('hidden-panel');
+
+            // تعبئة البيانات
+            document.getElementById('current-patient-header').innerText = p.name;
+            document.getElementById('patient-id-tag').innerText = "ملف رقم: " + p.id;
+            document.getElementById('patient-id-tag').classList.remove('hidden');
+            document.getElementById('patient-history').innerText = p.history;
+            document.getElementById('patient-alerts').innerText = p.alert;
+            document.getElementById('p-bp').innerText = p.bp;
+            document.getElementById('p-temp').innerText = p.temp;
+            
+            lucide.createIcons();
+        }
+
+        function switchTab(tabId) {
+            // إخفاء الكل
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden-panel'));
+            document.querySelectorAll('button[id^="btn-"]').forEach(b => {
+                b.classList.remove('active-tab');
+                b.classList.add('text-slate-400');
+            });
+
+            // إظهار المطلوب
+            document.getElementById(tabId).classList.remove('hidden-panel');
+            document.getElementById('btn-' + tabId).classList.add('active-tab');
+            document.getElementById('btn-' + tabId).classList.remove('text-slate-400');
+            lucide.createIcons();
+        }
+
+        function finalizeSession() {
+            alert("تم حفظ التشخيص النهائي وتحديث سجل المواطن المركزي بنجاح.");
+            location.reload();
+        }
+
+        function sendToLab() {
+            alert("تم إرسال طلب الفحوصات إلكترونياً لغرفة المعمل / الأشعة. يمكن للمواطن التوجه فوراً.");
+        }
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>

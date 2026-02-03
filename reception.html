@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الاستقبال المركزي | Clinara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .scanner-line {
+            height: 2px;
+            background: #ef4444;
+            box-shadow: 0 0 8px 2px rgba(239, 68, 68, 0.5);
+            position: absolute;
+            width: 100%;
+            animation: scan 2s infinite ease-in-out;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            50% { top: 100%; }
+            100% { top: 0; }
+        }
+        .modal-overlay { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(4px); }
+    </style>
+</head>
+<body class="bg-slate-100 h-screen flex overflow-hidden">
+
+    <aside class="w-72 bg-white border-l border-gray-200 flex flex-col shadow-xl z-10">
+        <div class="h-16 flex items-center justify-center border-b border-gray-100 bg-blue-950 text-white">
+            <span class="font-black text-xl tracking-wide uppercase">Clinara System</span>
+        </div>
+        <nav class="flex-1 py-6 px-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-900 rounded-xl font-bold">
+                <i data-lucide="monitor"></i>
+                <span>لوحة التحكم الرئيسية</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:bg-gray-50 rounded-xl transition">
+                <i data-lucide="users"></i>
+                <span>قائمة المرضى</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t">
+            <a href="roles.html" class="flex items-center text-red-600 font-bold gap-2 p-2 hover:bg-red-50 rounded-lg transition">
+                <i data-lucide="log-out" class="w-5 h-5"></i>
+                <span>إغلاق الوردية</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col min-w-0">
+        <header class="h-16 bg-white border-b flex justify-between items-center px-8 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h2 class="font-black text-gray-800 italic">مكتب استقبال مستشفى العام</h2>
+                <span class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-bold flex items-center gap-1">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> متصل بالشبكة الموحدة
+                </span>
+            </div>
+            
+            <button onclick="openScanner()" class="bg-blue-700 text-white px-6 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-800 transition shadow-lg shadow-blue-700/20">
+                <i data-lucide="qr-code"></i>
+                <span>تسجيل مواطن جديد (QR)</span>
+            </button>
+        </header>
+
+        <div class="p-8 overflow-y-auto">
+            <div class="grid grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <p class="text-gray-400 text-xs font-bold mb-1">إجمالي الحالات اليوم</p>
+                    <p class="text-3xl font-black text-slate-800">128</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 border-r-4 border-r-blue-600">
+                    <p class="text-gray-400 text-xs font-bold mb-1">في الانتظار</p>
+                    <p class="text-3xl font-black text-blue-700">14</p>
+                </div>
+                </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-6 border-b border-gray-100 bg-gray-50/50">
+                    <h3 class="font-bold text-gray-800">قائمة الطوارئ والعيادات</h3>
+                </div>
+                <table class="w-full text-right text-sm">
+                    <thead class="bg-gray-50 text-gray-500 uppercase">
+                        <tr>
+                            <th class="p-4">المواطن</th>
+                            <th class="p-4">الرقم القومي</th>
+                            <th class="p-4">العيادة</th>
+                            <th class="p-4">التأمين</th>
+                            <th class="p-4">الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100" id="patient-table">
+                        <tr>
+                            <td class="p-4 font-bold">سناء محمود حسن</td>
+                            <td class="p-4 text-gray-400">290XXXXXXX</td>
+                            <td class="p-4">الرمد</td>
+                            <td class="p-4"><span class="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs font-bold">شامل</span></td>
+                            <td class="p-4"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-bold">انتظار</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="scanner-modal" class="modal-overlay fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            
+            <div id="step-scan" class="p-8 text-center">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-black text-gray-800">مسح الهوية الرقمية</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600"><i data-lucide="x"></i></button>
+                </div>
+                
+                <div class="relative w-64 h-64 mx-auto bg-slate-900 rounded-2xl border-4 border-blue-100 overflow-hidden mb-6">
+                    <div class="scanner-line"></div>
+                    <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                        <i data-lucide="qr-code" size="100" class="text-white"></i>
+                    </div>
+                </div>
+                
+                <p class="text-gray-500 mb-6 font-bold">يرجى توجيه رمز الـ QR الخاص بالمواطن أمام الكاميرا</p>
+                <button onclick="simulateScanResult()" class="w-full bg-slate-100 text-slate-700 py-3 rounded-xl font-bold hover:bg-slate-200 transition">
+                    (محاكاة: تم العثور على المواطن)
+                </button>
+            </div>
+
+            <div id="step-result" class="hidden p-8">
+                <div class="flex items-center gap-4 mb-8 bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                    <div class="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-200">أ</div>
+                    <div>
+                        <h4 class="text-xl font-black text-blue-900">أحمد محمد علي</h4>
+                        <p class="text-sm text-gray-500 font-bold">الرقم القومي: 2850514XXXXXXX</p>
+                        <span class="text-[10px] bg-green-500 text-white px-2 py-0.5 rounded-full font-bold uppercase mt-1 inline-block">تأمين صحي شامل</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <label class="block text-sm font-bold text-gray-700">توجيه إلى العيادة:</label>
+                    <select id="clinic-select" class="w-full border-2 border-gray-100 rounded-xl p-4 bg-gray-50 font-bold focus:border-blue-600 outline-none transition">
+                        <option value="باطنة">عيادة الباطنة العامة</option>
+                        <option value="عظام">عيادة جراحة العظام</option>
+                        <option value="طوارئ">قسم الطوارئ السريع</option>
+                        <option value="أطفال">عيادة الأطفال</option>
+                    </select>
+
+                    <div class="flex gap-3 pt-4">
+                        <button onclick="finalizeRegistration()" class="flex-1 bg-blue-700 text-white py-4 rounded-xl font-bold hover:bg-blue-800 shadow-xl transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="check-circle"></i>
+                            تأكيد الدخول وطباعة التذكرة
+                        </button>
+                        <button onclick="closeModal()" class="px-6 bg-gray-100 text-gray-500 rounded-xl font-bold hover:bg-gray-200 transition">إلغاء</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="step-success" class="hidden p-12 text-center">
+                <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i data-lucide="check" size="48"></i>
+                </div>
+                <h3 class="text-2xl font-black text-gray-800 mb-2">تم التسجيل بنجاح</h3>
+                <p class="text-gray-500 mb-8 font-bold text-sm leading-relaxed">تم إرسال بيانات المواطن لعيادة <span id="final-clinic" class="text-blue-700 underline">...</span> وجاري طباعة التذكرة الموحدة.</p>
+                <button onclick="closeModal()" class="w-full bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-black transition shadow-xl">إغلاق</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // فتح المودال
+        function openScanner() {
+            document.getElementById('scanner-modal').classList.remove('hidden');
+            document.getElementById('step-scan').classList.remove('hidden');
+            document.getElementById('step-result').classList.add('hidden');
+            document.getElementById('step-success').classList.add('hidden');
+            lucide.createIcons();
+        }
+
+        // إغلاق المودال
+        function closeModal() {
+            document.getElementById('scanner-modal').classList.add('hidden');
+        }
+
+        // محاكاة نجاح الاسكان
+        function simulateScanResult() {
+            document.getElementById('step-scan').classList.add('hidden');
+            document.getElementById('step-result').classList.remove('hidden');
+            document.getElementById('step-result').classList.add('fade-in');
+            lucide.createIcons();
+        }
+
+        // تأكيد التسجيل النهائي
+        function finalizeRegistration() {
+            const clinic = document.getElementById('clinic-select').value;
+            document.getElementById('final-clinic').innerText = clinic;
+            
+            document.getElementById('step-result').classList.add('hidden');
+            document.getElementById('step-success').classList.remove('hidden');
+            
+            // إضافة سطر جديد للجدول لمحاكاة الواقعية
+            const table = document.getElementById('patient-table');
+            const row = table.insertRow(0);
+            row.className = "bg-blue-50 font-bold border-r-4 border-r-blue-600 transition-all duration-500";
+            row.innerHTML = `
+                <td class="p-4">أحمد محمد علي</td>
+                <td class="p-4 text-gray-400">2850514XXXXXXX</td>
+                <td class="p-4">${clinic}</td>
+                <td class="p-4"><span class="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs font-bold">شامل</span></td>
+                <td class="p-4"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-bold">تم الاستدعاء</span></td>
+            `;
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

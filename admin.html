@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الرقابة المركزية | Clinara Governance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .chart-bar { transition: height 1s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex overflow-hidden">
+
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col shadow-2xl z-20">
+        <div class="h-20 flex flex-col items-center justify-center border-b border-slate-800 bg-slate-950">
+            <span class="font-black text-2xl text-white tracking-tighter">Clinara <span class="text-blue-500">HQ</span></span>
+            <span class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">منظومة الحوكمة الرقمية</span>
+        </div>
+        <nav class="flex-1 py-8 px-4 space-y-2">
+            <a href="#" class="flex items-center gap-3 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-900/50">
+                <i data-lucide="bar-chart-3"></i>
+                <span>التقرير العام</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl transition">
+                <i data-lucide="package"></i>
+                <span>رقابة المخزون</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl transition">
+                <i data-lucide="wallet"></i>
+                <span>الإيرادات والمطالبات</span>
+            </a>
+            <a href="#" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-800 rounded-xl transition text-red-400">
+                <i data-lucide="alert-triangle"></i>
+                <span>وحدة إدارة الأزمات</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-slate-800">
+            <a href="roles.html" class="flex items-center gap-2 p-2 text-sm font-bold hover:text-white transition">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+                <span>خروج من النظام</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        
+        <header class="h-20 bg-white border-b flex justify-between items-center px-10 sticky top-0 z-10 shadow-sm">
+            <div>
+                <h2 class="text-xl font-black text-slate-800">لوحة المتابعة اللحظية - قطاع المستشفيات</h2>
+                <p class="text-xs text-slate-400 font-bold">تحديث تلقائي: <span class="text-blue-600">منذ دقيقة واحدة</span></p>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="text-left">
+                    <div class="bg-red-50 text-red-600 px-3 py-1 rounded-full text-[10px] font-black border border-red-100 animate-pulse">
+                        تنبيه: عجز في مخزون الأنسولين (الجيزة)
+                    </div>
+                </div>
+                <div class="w-12 h-12 bg-slate-100 rounded-full border-2 border-blue-500 flex items-center justify-center font-black text-slate-700">M</div>
+            </div>
+        </header>
+
+        <div class="p-10 space-y-8">
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-blue-50 text-blue-600 rounded-2xl"><i data-lucide="users"></i></div>
+                        <span class="text-green-500 text-xs font-bold">+12%</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-black uppercase mb-1">إجمالي المترددين اليوم</p>
+                    <p class="text-3xl font-black text-slate-900 leading-none">14,250</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-2xl"><i data-lucide="bed"></i></div>
+                        <span class="text-slate-400 text-xs font-bold">مستقر</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-black uppercase mb-1">نسبة إشغال الأسرة</p>
+                    <p class="text-3xl font-black text-slate-900 leading-none">82%</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-amber-50 text-amber-600 rounded-2xl"><i data-lucide="dollar-sign"></i></div>
+                        <span class="text-red-500 text-xs font-bold">-5% هدر</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-black uppercase mb-1">صافي الإيرادات (ج.م)</p>
+                    <p class="text-3xl font-black text-slate-900 leading-none">1.2M</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm border-r-4 border-r-blue-600">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-blue-50 text-blue-900 rounded-2xl"><i data-lucide="check-circle"></i></div>
+                        <span class="text-blue-600 text-xs font-bold">جيد جداً</span>
+                    </div>
+                    <p class="text-slate-400 text-xs font-black uppercase mb-1">مؤشر جودة الخدمة</p>
+                    <p class="text-3xl font-black text-blue-900 leading-none">4.8/5</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col">
+                    <div class="flex justify-between items-center mb-8">
+                        <h3 class="font-black text-slate-800 tracking-tight">تحليل التدفق النقدي والإنفاق</h3>
+                        <div class="flex gap-2">
+                             <span class="flex items-center gap-1 text-[10px] text-blue-600"><span class="w-2 h-2 bg-blue-600 rounded-full"></span> إيراد</span>
+                             <span class="flex items-center gap-1 text-[10px] text-slate-300"><span class="w-2 h-2 bg-slate-300 rounded-full"></span> إنفاق</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 flex items-end gap-4 h-48">
+                        <div class="flex-1 flex flex-col items-center gap-2">
+                            <div class="w-full bg-slate-100 rounded-t-lg h-24 relative overflow-hidden"><div class="absolute bottom-0 w-full bg-blue-600 h-3/4"></div></div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">يناير</span>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center gap-2">
+                            <div class="w-full bg-slate-100 rounded-t-lg h-32 relative overflow-hidden"><div class="absolute bottom-0 w-full bg-blue-600 h-1/2"></div></div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">فبراير</span>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center gap-2">
+                            <div class="w-full bg-slate-100 rounded-t-lg h-40 relative overflow-hidden"><div class="absolute bottom-0 w-full bg-blue-600 h-4/5"></div></div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">مارس</span>
+                        </div>
+                        <div class="flex-1 flex flex-col items-center gap-2">
+                            <div class="w-full bg-slate-100 rounded-t-lg h-28 relative overflow-hidden"><div class="absolute bottom-0 w-full bg-blue-600 h-2/3"></div></div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase">ابريل</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
+                    <h3 class="font-black text-slate-800 mb-6 italic">رقابة المخزون الدوائي اللحظية</h3>
+                    <div class="space-y-6">
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span>مستشفى الجيزة العام</span>
+                                <span class="text-red-600">عجز (أدوية طوارئ)</span>
+                            </div>
+                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-red-500 w-[15%]"></div></div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span>وحدة ميت غمر الريفية</span>
+                                <span class="text-green-600">مخزون آمن</span>
+                            </div>
+                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-green-500 w-[85%]"></div></div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs font-bold">
+                                <span>مستشفى المنيرة العام</span>
+                                <span class="text-amber-500">نواقص محتملة</span>
+                            </div>
+                            <div class="h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-amber-500 w-[45%]"></div></div>
+                        </div>
+                    </div>
+                    <button class="w-full mt-8 bg-slate-50 text-blue-900 border border-blue-100 py-3 rounded-xl font-bold text-sm hover:bg-blue-100 transition">
+                        إصدار أمر توريد مركزي طارئ
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 text-white rounded-3xl shadow-2xl overflow-hidden">
+                <div class="p-8 border-b border-slate-800 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-black mb-1">وحدة حوكمة مرفوضات التأمين</h3>
+                        <p class="text-slate-500 text-xs">تحليل أسباب رفض المطالبات المالية من هيئة التأمين الشامل</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-2xl font-black text-red-500 tracking-tighter">450,000 ج.م</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase">إجمالي المرفوضات (هذا الشهر)</p>
+                    </div>
+                </div>
+                <table class="w-full text-right text-sm">
+                    <thead class="bg-slate-800/50 text-slate-400">
+                        <tr>
+                            <th class="p-4">المنشأة</th>
+                            <th class="p-4">سبب الرفض الرئيسي</th>
+                            <th class="p-4">عدد الحالات</th>
+                            <th class="p-4">القيمة المهدرة</th>
+                            <th class="p-4">الإجراء التصحيحي</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800">
+                        <tr>
+                            <td class="p-4 font-bold">مستشفى العام (الجيزة)</td>
+                            <td class="p-4">خطأ في أكواد العمليات</td>
+                            <td class="p-4">124</td>
+                            <td class="p-4 text-red-400">180,000 ج.م</td>
+                            <td class="p-4"><span class="bg-blue-900/50 text-blue-400 px-2 py-1 rounded text-[10px] font-bold">تحديث نظام الأكواد</span></td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold">مستشفى أم المصريين</td>
+                            <td class="p-4">عدم استكمال الملف الطبي</td>
+                            <td class="p-4">85</td>
+                            <td class="p-4 text-red-400">95,000 ج.م</td>
+                            <td class="p-4"><span class="bg-blue-900/50 text-blue-400 px-2 py-1 rounded text-[10px] font-bold">تنبيه آلي للأطباء</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الدخول الموحدة | Clinara</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+        .role-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .role-card:hover { transform: translateY(-8px); }
+        .gov-shadow { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col items-center py-12 px-6">
+
+    <div class="max-w-6xl w-full">
+        <a href="index.html" class="mb-10 text-slate-500 hover:text-blue-900 flex items-center gap-2 font-bold transition w-fit group">
+            <i data-lucide="arrow-right" class="group-hover:-translate-x-1 transition-transform"></i>
+            العودة لموقع المنظومة التعريفي
+        </a>
+
+        <div class="text-center mb-16">
+            <span class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-black mb-4 inline-block uppercase tracking-widest">
+                نظام التشغيل الموحد v2.0
+            </span>
+            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4 tracking-tight">بوابة الوصول الرقمية</h1>
+            <p class="text-slate-500 text-lg max-w-3xl mx-auto leading-relaxed">
+                يرجى اختيار واجهة المستخدم لبدء محاكاة <strong>الربط المركزي</strong> بين كافة أقسام المنظومة الصحية.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <a href="patient.html" class="role-card bg-white p-8 rounded-3xl border-b-8 border-emerald-500 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                    <i data-lucide="user" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-slate-800">بوابة المواطن</h3>
+                <p class="text-sm text-slate-400 font-medium mb-4">ملف طبي موحد، حجز ذكي، وواجهات تدعم محو الأمية الرقمية.</p>
+                <div class="text-emerald-600 font-bold text-xs uppercase tracking-widest">عرض الواجهة المبسطة &larr;</div>
+            </a>
+
+            <a href="reception.html" class="role-card bg-white p-8 rounded-3xl border-b-8 border-blue-600 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-blue-50 text-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                    <i data-lucide="monitor-check" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-slate-800">الاستقبال والطوارئ</h3>
+                <p class="text-sm text-slate-400 font-medium mb-4">تسجيل سريع عبر الـ QR code، وإدارة طوابير الانتظار في المستشفيات العامة.</p>
+                <div class="text-blue-600 font-bold text-xs uppercase tracking-widest">عرض واجهة الموظف &larr;</div>
+            </a>
+
+            <a href="doctor.html" class="role-card bg-white p-8 rounded-3xl border-b-8 border-indigo-600 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-indigo-50 text-indigo-700 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                    <i data-lucide="stethoscope" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-slate-800">عيادة الطبيب</h3>
+                <p class="text-sm text-slate-400 font-medium mb-4">السجل الطبي الإلكتروني (EMR)، الروشتة الرقمية، وطلب الفحوصات الفوري.</p>
+                <div class="text-indigo-600 font-bold text-xs uppercase tracking-widest">عرض لوحة العيادة &larr;</div>
+            </a>
+
+            <a href="lab.html" class="role-card bg-white p-8 rounded-3xl border-b-8 border-teal-500 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-teal-50 text-teal-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                    <i data-lucide="test-tube-2" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-slate-800">المعمل والأشعة</h3>
+                <p class="text-sm text-slate-400 font-medium mb-4">استقبال طلبات الفحص إلكترونياً، ورفع النتائج مباشرة لملف المريض.</p>
+                <div class="text-teal-600 font-bold text-xs uppercase tracking-widest">عرض واجهة الفني &larr;</div>
+            </a>
+
+            <a href="pharmacy.html" class="role-card bg-white p-8 rounded-3xl border-b-8 border-orange-500 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-orange-50 text-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+                    <i data-lucide="pill" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-slate-800">الصيدلية المميكنة</h3>
+                <p class="text-sm text-slate-400 font-medium mb-4">حوكمة صرف الأدوية، مراقبة العهدة، ومنع تسرب المخزون الدوائي.</p>
+                <div class="text-orange-600 font-bold text-xs uppercase tracking-widest">عرض واجهة الصيدلي &larr;</div>
+            </a>
+
+            <a href="admin.html" class="role-card bg-slate-900 p-8 rounded-3xl border-b-8 border-red-600 gov-shadow hover:shadow-2xl transition-all group text-center">
+                <div class="w-16 h-16 bg-white/10 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:bg-red-600 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-8 h-8"></i>
+                </div>
+                <h3 class="font-black text-xl mb-2 text-white">الرقابة المركزية</h3>
+                <p class="text-slate-400 text-sm font-medium mb-4">لوحة تحكم صناع القرار لمتابعة الأداء، المالية، وهدر الموارد لحظياً.</p>
+                <div class="text-red-500 font-bold text-xs uppercase tracking-widest">عرض لوحة القيادة &larr;</div>
+            </a>
+
+        </div>
+
+        <div class="mt-20 border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-400 text-sm">
+            <p>جميع هذه الواجهات تعمل على قاعدة بيانات مركزية واحدة</p>
+            <p class="font-bold">Clinara Healthcare Solutions &copy; 2026</p>
+        </div>
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>
